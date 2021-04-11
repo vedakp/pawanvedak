@@ -26,6 +26,8 @@
                 height: 500px;
             }
             .mainbox::after{
+                display: flex;
+                justify-content: center;
                 position: absolute;
                 content:'';
                 width: 200px;
@@ -133,8 +135,8 @@
                     <span class="span4"><b>1000</b></span>
                 </div>
             </div>
+            <button class="spin" onclick="spin()">Spin</button>
         </div>
-        <button class="spin" onclick="spin()">Spin</button>
     </body>
     <script>
         function spin(){
