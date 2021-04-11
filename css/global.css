@@ -1,0 +1,13 @@
+
+.search-bar{
+    width: 95%;
+    height: 48px;
+    margin: 10px;
+    border: 1px solid;
+    border-radius: 8px;
+}
+
+  
+.search-bar ::placeholder {
+    margin-left: 50px;
+  }
