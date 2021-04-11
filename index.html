@@ -1,6 +1,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <title>Spin the wheel</title>
         <style>
             *{
@@ -13,6 +14,7 @@
                 font-family: 'Open Sans';
                 display: flex;
                 justify-content: center;
+                flex-direction:column;
                 align-items: center;
                 height:100vh;
                 overflow: hidden;
@@ -117,9 +119,31 @@
                 height: 70px;
                 font-size: 20px;
             }
+            .code-block{
+                height:50px;
+                color:#fff;
+                font-size: 30px;
+                border-bottom: 5px dashed white;
+                margin-bottom: 50px;
+                /* box-shadow: inset 0px 3px 3px 0px #717171; */
+            }
+            .copy-button{
+                margin-left:20px;
+                height: 50px;
+                width: 50px;
+                background-color:#141921;
+                font-size: 40px;
+                color:#fff;
+                border: 3px solid #141921;
+            }
         </style>
     </head>    
     <body>
+        <div class="code-block">
+            <label>Code:</label>
+            <label id="myInput"></label>
+            <button class="copy-button" onclick="copyToClipBoard()"><i class="fa fa-copy"></i></button>
+        </div>
         <div class="mainbox">
             <div id="box" class="box">
                 <div class="box1">
@@ -135,11 +159,17 @@
                     <span class="span4"><b>1000</b></span>
                 </div>
             </div>
-            <button class="spin" onclick="spin()">Spin</button>
+            <button id="spin" class="spin" onclick="spin()">Spin</button>
         </div>
     </body>
     <script>
+        isSpinned = false;
+        copyText = "";
         function spin(){
+            if(isSpinned){
+                window.location.reload();
+            }
+            
             var parts = [
                 {0:0},
                 {10:180},
@@ -151,12 +181,35 @@
                 {1000:225}
             ]
 
+            
             var rand = Math.floor(Math.random() * 5);
             var part = parts[rand][Object.keys(parts[rand])[0]];
+            copyText = "WIN00"+Object.keys(parts[rand])[0];
             var deg = part+3600;//Math.floor(Math.random() * (x * y)) + y;
 
             console.log("Deg",deg);
             document.getElementById('box').style.transform = "rotate("+deg+"deg)";
+            document.getElementById('spin').innerHTML =  '<i class="fa fa-refresh"></i>';
+            isSpinned = true;
+            setTimeout(()=>{
+                document.getElementById("myInput").innerHTML=copyText;
+            },5300);
+        }
+
+
+        function copyToClipBoard() {
+            /* Get the text field */
+            var copyText = document.getElementById("myInput");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+
+            /* Alert the copied text */
+            alert("Copied the text: " + copyText.value);
         }
     </script>
 </html>
